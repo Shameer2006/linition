@@ -1,6 +1,6 @@
-# Flowboard - Project & Task Management
+# Linition - Project & Task Management
 
-Flowboard is a premium, high-performance project and task management application built with the modern Next.js App Router. It is designed with a sleek, glassmorphic UI, smooth micro-animations, and powerful real-time collaboration features inspired by industry leaders like Notion and Linear.
+Linition is a premium, high-performance project and task management application built with the modern Next.js App Router. It is designed with a sleek, glassmorphic UI, smooth micro-animations, and powerful real-time collaboration features inspired by industry leaders like Notion and Linear.
 
 ## ✨ Features
 
@@ -15,7 +15,7 @@ Flowboard is a premium, high-performance project and task management application
 
 ## 📂 Project Directory Structure
 
-Below is the directory layout of the Flowboard application, outlining the responsibility of each folder and key file:
+Below is the directory layout of the Linition application, outlining the responsibility of each folder and key file:
 
 ```text
 linition/

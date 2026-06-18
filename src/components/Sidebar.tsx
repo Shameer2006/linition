@@ -89,7 +89,7 @@ export default function Sidebar() {
         </div>
         {!collapsed && (
           <span style={{ fontSize: "1rem", fontWeight: 600, letterSpacing: "-0.025em", whiteSpace: "nowrap" }} className="gradient-text">
-            Flowboard
+            Linition
           </span>
         )}
       </div>

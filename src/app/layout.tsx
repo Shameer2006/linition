@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Flowboard - Project Management",
+  title: "Linition - Project Management",
   description:
     "A premium project and task management application built with Next.js",
 };

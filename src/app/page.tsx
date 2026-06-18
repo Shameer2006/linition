@@ -83,7 +83,7 @@ export default function LandingPage() {
           >
             <Layers size={20} color="white" strokeWidth={2.5} />
           </div>
-          <span style={{ fontWeight: "bold", fontSize: "1.25rem", letterSpacing: "-0.025em" }}>Flowboard</span>
+          <span style={{ fontWeight: "bold", fontSize: "1.25rem", letterSpacing: "-0.025em" }}>Linition</span>
         </div>
         <div>
           <Link
@@ -150,7 +150,7 @@ export default function LandingPage() {
             }}
           >
             <Zap size={14} fill="currentColor" />
-            <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>Introducing Flowboard 2.0</span>
+            <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>Introducing Linition 2.0</span>
           </div>
 
           <h1
@@ -177,7 +177,7 @@ export default function LandingPage() {
               lineHeight: 1.6
             }}
           >
-            Flowboard is the premium task management platform designed for high-performing teams. Organize work, track progress, and achieve your goals in a beautifully crafted workspace.
+            Linition is the premium task management platform designed for high-performing teams. Organize work, track progress, and achieve your goals in a beautifully crafted workspace.
           </p>
 
           <div style={{ display: "flex", gap: "1rem", marginBottom: "5rem" }}>
@@ -341,7 +341,7 @@ export default function LandingPage() {
           boxSizing: "border-box"
         }}
       >
-        <p style={{ fontSize: "0.875rem" }}>© {new Date().getFullYear()} Flowboard. All rights reserved.</p>
+        <p style={{ fontSize: "0.875rem" }}>© {new Date().getFullYear()} Linition. All rights reserved.</p>
       </footer>
 
       {/* Animations */}
