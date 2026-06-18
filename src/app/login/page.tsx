@@ -6,14 +6,16 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+import { Suspense } from "react";
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [isLoadingCredentials, setIsLoadingCredentials] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -97,8 +99,8 @@ export default function LoginPage() {
           pointerEvents: "none",
         }}
       />
-      
-      <div 
+
+      <div
         style={{
           position: "absolute",
           top: 0,
@@ -111,10 +113,10 @@ export default function LoginPage() {
       />
 
       <div className="relative z-10 w-full px-6 flex flex-col items-center animate-fade-in" style={{ maxWidth: "440px" }}>
-        
+
         <div className="flex flex-col items-center justify-center mb-8" style={{ animationDelay: "50ms" }}>
           <div className="relative mb-4">
-            <div 
+            <div
               style={{
                 position: "absolute",
                 inset: 0,
@@ -124,7 +126,7 @@ export default function LoginPage() {
                 opacity: 0.6
               }}
             />
-            <div 
+            <div
               className="relative flex items-center justify-center"
               style={{
                 width: "4rem",
@@ -138,7 +140,7 @@ export default function LoginPage() {
               <Layers size={28} color="white" strokeWidth={2.5} />
             </div>
           </div>
-          <h1 
+          <h1
             className="text-3xl font-bold tracking-tight text-center"
             style={{
               background: "linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)",
@@ -151,9 +153,9 @@ export default function LoginPage() {
           </h1>
         </div>
 
-        <div 
+        <div
           className="w-full relative overflow-hidden animate-slide-in"
-          style={{ 
+          style={{
             animationDelay: "150ms",
             background: "rgba(17, 17, 24, 0.75)",
             backdropFilter: "blur(24px)",
@@ -164,7 +166,7 @@ export default function LoginPage() {
             boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0,0,0,0.3)",
           }}
         >
-          <div 
+          <div
             style={{
               position: "absolute",
               top: 0,
@@ -180,7 +182,7 @@ export default function LoginPage() {
               {error}
             </div>
           )}
-          
+
           {successMsg && (
             <div style={{ padding: "0.75rem", borderRadius: "0.5rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", color: "var(--accent-emerald)", fontSize: "0.875rem", marginBottom: "1.5rem", textAlign: "center" }}>
               {successMsg}
@@ -333,12 +335,21 @@ export default function LoginPage() {
 
       </div>
 
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.15; transform: scale(1); }
           50% { opacity: 0.25; transform: scale(1.05); }
         }
       `}} />
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

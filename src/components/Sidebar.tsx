@@ -13,6 +13,7 @@ import {
   ChevronLeft,
   ChevronRight,
   User,
+  UserPlus,
 } from "lucide-react";
 
 const navItems = [
@@ -30,6 +31,11 @@ const navItems = [
     label: "Tasks",
     href: "/tasks",
     icon: CheckSquare,
+  },
+  {
+    label: "Invitations",
+    href: "/invitations",
+    icon: UserPlus,
   },
 ];
 

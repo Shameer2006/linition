@@ -35,6 +35,16 @@ interface Project {
   endDate: string | null;
   createdAt: string;
   tasks: Task[];
+  members: {
+    id: string;
+    role: string;
+    status: string;
+    user: {
+      name: string | null;
+      email: string | null;
+      image: string | null;
+    };
+  }[];
 }
 
 const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
@@ -394,12 +404,12 @@ export default function ProjectDetailPage({
 
   useEffect(() => {
     fetchProject();
-    
+
     // Simulate real-time updates via polling
     const interval = setInterval(() => {
       fetchProject();
     }, 5000);
-    
+
     return () => clearInterval(interval);
   }, [fetchProject]);
 
@@ -523,6 +533,7 @@ export default function ProjectDetailPage({
                 color: "var(--accent-violet)",
                 border: "1px solid rgba(139, 92, 246, 0.2)",
                 transition: "all 0.2s",
+                height: "fit-content"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "rgba(139, 92, 246, 0.2)";
@@ -535,6 +546,50 @@ export default function ProjectDetailPage({
             </button>
           </div>
         </div>
+
+        {/* Contributors Avatar Group */}
+        {(() => {
+          const activeMembers = project.members.filter(m => m.status === "ACCEPTED");
+          if (activeMembers.length === 0) return null;
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {activeMembers.map((member, index) => (
+                  <div
+                    key={member.id}
+                    title={member.user.name || member.user.email || "User"}
+                    style={{
+                      width: "2rem",
+                      height: "2rem",
+                      borderRadius: "9999px",
+                      background: "var(--bg-tertiary)",
+                      border: "2px solid var(--bg-secondary)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginLeft: index > 0 ? "-0.75rem" : "0",
+                      position: "relative",
+                      zIndex: activeMembers.length - index,
+                      overflow: "hidden",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      color: "var(--text-primary)"
+                    }}
+                  >
+                    {member.user.image ? (
+                      <img src={member.user.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    ) : (
+                      (member.user.name?.[0] || member.user.email?.[0] || "?").toUpperCase()
+                    )}
+                  </div>
+                ))}
+              </div>
+              <span style={{ fontSize: "0.875rem", color: "var(--text-secondary)" }}>
+                {activeMembers.length} {activeMembers.length === 1 ? "Contributor" : "Contributors"}
+              </span>
+            </div>
+          );
+        })()}
 
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", fontSize: "0.75rem", color: "var(--text-muted)", flexWrap: "wrap", marginBottom: "1rem" }}>
           {project.startDate && (
@@ -802,7 +857,8 @@ export default function ProjectDetailPage({
       )}
 
       {/* Global styles for animations */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }

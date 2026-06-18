@@ -84,11 +84,18 @@ enum ProjectRole {
   VIEWER
 }
 
+enum MemberStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model ProjectMember {
-  id        String      @id @default(cuid())
-  role      ProjectRole @default(MEMBER)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id        String       @id @default(cuid())
+  role      ProjectRole  @default(MEMBER)
+  status    MemberStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
   userId    String
   projectId String

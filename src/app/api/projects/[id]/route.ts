@@ -33,7 +33,7 @@ export async function GET(
     return Response.json({ error: "Project not found" }, { status: 404 });
   }
 
-  const isMember = project.userId === session.user.id || project.members.some(m => m.userId === session.user.id);
+  const isMember = project.userId === session.user.id || project.members.some(m => m.userId === session.user.id && m.status === "ACCEPTED");
   if (!isMember) {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -53,16 +53,16 @@ export async function PUT(
 
   const { id } = await params;
 
-  const existing = await prisma.project.findUnique({ 
+  const existing = await prisma.project.findUnique({
     where: { id },
     include: { members: true }
   });
-  
+
   if (!existing) {
     return Response.json({ error: "Project not found" }, { status: 404 });
   }
-  
-  const isMember = existing.userId === session.user.id || existing.members.some(m => m.userId === session.user.id);
+
+  const isMember = existing.userId === session.user.id || existing.members.some(m => m.userId === session.user.id && m.status === "ACCEPTED");
   if (!isMember) {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -114,15 +114,15 @@ export async function DELETE(
 
   const { id } = await params;
 
-  const existing = await prisma.project.findUnique({ 
+  const existing = await prisma.project.findUnique({
     where: { id },
     include: { members: true }
   });
-  
+
   if (!existing) {
     return Response.json({ error: "Project not found" }, { status: 404 });
   }
-  
+
   const isOwner = existing.userId === session.user.id || existing.members.some(m => m.userId === session.user.id && m.role === "OWNER");
   if (!isOwner) {
     return Response.json({ error: "Forbidden: Only owners can delete projects" }, { status: 403 });
