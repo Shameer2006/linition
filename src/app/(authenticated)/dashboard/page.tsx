@@ -159,7 +159,7 @@ export default function DashboardPage() {
     );
   }
 
-  if (!data) return null;
+  if (!data || !data.recentProjects || !data.upcomingTasks) return null;
 
   const taskCompletionRate =
     data.totalTasks > 0
